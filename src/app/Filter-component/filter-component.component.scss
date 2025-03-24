@@ -1,0 +1,15 @@
+.book-list-header {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+
+  & > div input {
+    min-width: 100px;
+  }
+}
+
+.book-list-pages {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

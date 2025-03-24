@@ -1,0 +1,29 @@
+.book-create-dialog {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-create-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.book-create-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > * {
+    width: 50%;
+  }
+}
+
+.book-create-buttons {
+  display: flex;
+  gap: 4px;
+}

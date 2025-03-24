@@ -1,0 +1,76 @@
+<form [formGroup]="newBookForm">
+  <div class="book-create-dialog">
+    <div class="book-create-forms">
+      <div class="book-create-form">
+        <label for="title">Название</label>
+        <input
+          pInputText
+          id="title"
+          autocomplete="off"
+          formControlName="title"
+        />
+      </div>
+
+      <div class="book-create-form">
+        <label for="author">Автор</label>
+        <p-dropdown
+          [options]="authors"
+          placeholder="Выберите автора"
+          optionLabel="name"
+          formControlName="author"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+
+      <div class="book-create-form">
+        <label for="genre">Жанр</label>
+        <input
+          pInputText
+          id="genre"
+          autocomplete="off"
+          formControlName="genre"
+        />
+      </div>
+
+      <div class="book-create-form">
+        <label for="language">Язык</label>
+        <p-dropdown
+          [options]="languages"
+          placeholder="Выберите язык"
+          optionLabel="name"
+          formControlName="language"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+
+      <div class="book-create-form">
+        <label for="pages">Кол-во страниц</label>
+        <p-inputNumber
+          id="pages"
+          autocomplete="off"
+          formControlName="pages"
+          [style]="{ width: '100%' }"
+        />
+      </div>
+
+      <div class="book-create-form">
+        <label for="description">Описание</label>
+        <input
+          id="description"
+          type="text"
+          pInputText
+          formControlName="description"
+        />
+      </div>
+    </div>
+
+    <div class="book-create-buttons">
+      <p-button
+        label="Создать"
+        [disabled]="newBookForm.invalid"
+        (onClick)="addBook()"
+      />
+      <p-button label="Отмена" severity="secondary" (onClick)="closeDialog()" />
+    </div>
+  </div>
+</form>

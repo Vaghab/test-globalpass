@@ -1,0 +1,37 @@
+.book-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+
+  &:hover {
+    background-color: #e2e8f0;
+  }
+
+  &:active {
+    background-color: #bab9e7;
+  }
+}
+
+.book-title {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.book-author,
+.book-desc {
+  font-size: 13px;
+  color: #334135;
+}
+
+.book-info {
+  display: flex;
+  gap: 4px;
+}
+
+.book-list-header {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+}

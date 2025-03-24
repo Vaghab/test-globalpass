@@ -1,0 +1,23 @@
+<p-dataView [rows]="10" [paginator]="true" [value]="bookSignal$ | async">
+  <ng-template pTemplate="list" let-books>
+    <div>
+      @for (book of books; track book) {
+      <div>
+        <div
+          class="book-list-container"
+          [style]="{ width: '100%' }"
+          (click)="viewBook(book)"
+        >
+          <div class="book-title">Наименование: {{ book.title }}</div>
+          <div class="book-author">Автор: {{ book.author }}</div>
+          <div class="book-info">
+            <p-tag>{{ book.genre }}</p-tag>
+            <p-tag severity="success">{{ book.language }}</p-tag>
+            <p-tag severity="contrast">{{ book.pages }} стр</p-tag>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </ng-template>
+</p-dataView>

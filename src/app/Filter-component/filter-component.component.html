@@ -1,0 +1,50 @@
+<form [formGroup]="filterForm">
+  <div class="book-list-header">
+    <div>
+      <p-autoComplete
+        placeholder="Поиск"
+        formControlName="search"
+        (completeMethod)="refreshFilter()"
+        (onClear)="refreshFilter()"
+      />
+    </div>
+    <div>
+      <p-multiSelect
+        [options]="sortAuthors"
+        placeholder="Автор"
+        formControlName="sortAuthors"
+        (onChange)="refreshFilter()"
+      />
+    </div>
+    <div>
+      <p-multiSelect
+        [options]="sortLanguages"
+        placeholder="Язык"
+        formControlName="sortLanguages"
+        (onChange)="refreshFilter()"
+      />
+    </div>
+
+    <div class="book-list-pages">
+      <span>Кол-во страниц от</span>
+      <p-inputNumber
+        formControlName="minPages"
+        (onInput)="refreshFilter()"
+      ></p-inputNumber>
+      <span>до</span>
+      <p-inputNumber
+        formControlName="maxPages"
+        (onInput)="refreshFilter()"
+      ></p-inputNumber>
+    </div>
+
+    <div>
+      <p-multiSelect
+        [options]="sortGenres"
+        placeholder="Жанр"
+        formControlName="sortGenres"
+        (onChange)="refreshFilter()"
+      />
+    </div>
+  </div>
+</form>

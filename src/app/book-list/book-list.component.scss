@@ -1,0 +1,57 @@
+.book-list-app {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.book-create-dialog,
+.book-show-dialog {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-show-dialog {
+  min-width: 300px;
+}
+
+.book-create-forms,
+.book-show-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.book-show-forms {
+  gap: 8px;
+}
+
+.book-create-form,
+.book-show-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-show-form label {
+  font-weight: 400;
+  min-width: 150px;
+}
+
+.book-show-form span {
+  font-size: 14px;
+  text-align: right;
+}
+
+input {
+  width: 250px;
+}
