@@ -4,7 +4,9 @@
     label="Добавить книгу"
     (onClick)="createBook()"
   ></p-button>
-  <app-filter-component></app-filter-component>
+  <app-filter-component
+    (filterParams)="refreshFilter($event)"
+  ></app-filter-component>
 
-  <app-List-component></app-List-component>
+  <app-List-component [books]="books()"></app-List-component>
 </div>

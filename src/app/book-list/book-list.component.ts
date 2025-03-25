@@ -7,7 +7,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  effect,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
@@ -16,6 +18,7 @@ import { FormComponent } from '../Form-component/Form-component.component';
 import { Book } from '../interfaces/Book.interface';
 import { ListComponent } from '../List-component/List-component.component';
 import { BookService } from '../services/BookService.service';
+import { Params } from '../interfaces/Params.interface';
 
 @Component({
   selector: 'app-book-list',
@@ -31,7 +34,7 @@ export class BookListComponent {
   private readonly bookService = inject(BookService);
   private readonly destroyed = inject(DestroyRef);
 
-  readonly books = toSignal(this.bookService.find());
+  readonly books = toSignal(this.bookService.find(), { initialValue: [] });
 
   public createBook() {
     this.dialogService
@@ -50,5 +53,9 @@ export class BookListComponent {
         takeUntilDestroyed(this.destroyed)
       )
       .subscribe();
+  }
+
+  refreshFilter(params: Params) {
+    this.bookService.find(params);
   }
 }

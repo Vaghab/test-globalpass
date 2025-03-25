@@ -1,5 +1,14 @@
 import { MockService } from './../services/mock.service';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+  Output,
+  inject,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,6 +22,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Params } from '../interfaces/Params.interface';
 import { BookService } from '../services/BookService.service';
+import { tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-filter-component',
@@ -29,13 +40,17 @@ import { BookService } from '../services/BookService.service';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
   private readonly mockService = inject(MockService);
   private readonly bookService = inject(BookService);
+
+  private readonly destroyed = inject(DestroyRef);
 
   readonly sortAuthors = this.mockService.getAuthors();
   readonly sortLanguages = this.mockService.getLanguages();
   readonly sortGenres = this.mockService.getGenres();
+
+  filterParams = output<Params>({});
 
   public readonly filterForm = new FormGroup<{
     search: FormControl<string | null>;
@@ -53,6 +68,15 @@ export class FilterComponent {
     sortGenres: new FormControl([]),
   });
 
+  ngOnInit(): void {
+    this.filterForm.valueChanges
+      .pipe(
+        tap(() => this.refreshFilter()),
+        takeUntilDestroyed(this.destroyed)
+      )
+      .subscribe();
+  }
+
   refreshFilter() {
     let params: Params = {
       author: this.filterForm.value.sortAuthors,
@@ -65,6 +89,6 @@ export class FilterComponent {
       language: this.filterForm.value.sortLanguages,
     };
 
-    this.bookService.find(params);
+    this.filterParams.emit(params);
   }
 }

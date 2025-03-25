@@ -1,4 +1,4 @@
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
@@ -88,61 +88,63 @@ const books = new Map<number, Book>([
 export class MockService {
   readonly books = new BehaviorSubject(books);
 
+  addBook(book: Book) {
+    books.set(book.id, book);
+    this.books.next(books);
+  }
+
   filter(params: Params) {
-    let filteredBooks = Array.from(this.books.value.values()).filter(
-      (book: Book) => {
-        // Если параметры не заданы, считаем, что книга подходит
+    console.log(books.values());
+    let filteredBooks = Array.from(books.values()).filter((book: Book) => {
+      // Если параметры не заданы, считаем, что книга подходит
 
-        if (
-          (!params.author || params.author.length === 0) &&
-          !params.tittle &&
-          (!params.range || (params.range[0] === 0 && params.range[1] === 0)) &&
-          (!params.genre || params.genre.length === 0) &&
-          (!params.language || params.language.length === 0)
-        ) {
-          return true;
-        }
-
-        let matches = false;
-
-        // Проверка по автору
-        if (params.author && params.author.includes(book.author)) {
-          matches = true;
-        }
-
-        // Проверка по названию (title)
-        if (
-          (params.tittle &&
-            book.title.toLowerCase().includes(params.tittle.toLowerCase())) ||
-          (params.tittle &&
-            book.description
-              .toLowerCase()
-              .includes(params.tittle.toLowerCase()))
-        ) {
-          matches = true;
-        }
-
-        // Проверка по диапазону страниц
-        if (params.range) {
-          const [minPages, maxPages] = params.range;
-          if (book.pages >= minPages && book.pages <= maxPages) {
-            matches = true;
-          }
-        }
-
-        // Проверка по жанру
-        if (params.genre && params.genre.includes(book.genre)) {
-          matches = true;
-        }
-
-        // Проверка по языку
-        if (params.language && params.language.includes(book.language)) {
-          matches = true;
-        }
-
-        return matches; // Возвращаем true, если хотя бы один параметр совпал
+      if (
+        (!params.author || params.author.length === 0) &&
+        !params.tittle &&
+        (!params.range || (params.range[0] === 0 && params.range[1] === 0)) &&
+        (!params.genre || params.genre.length === 0) &&
+        (!params.language || params.language.length === 0)
+      ) {
+        return true;
       }
-    );
+
+      let matches = false;
+
+      // Проверка по автору
+      if (params.author && params.author.includes(book.author)) {
+        matches = true;
+      }
+
+      // Проверка по названию (title)
+      if (
+        (params.tittle &&
+          book.title.toLowerCase().includes(params.tittle.toLowerCase())) ||
+        (params.tittle &&
+          book.description.toLowerCase().includes(params.tittle.toLowerCase()))
+      ) {
+        matches = true;
+      }
+
+      // Проверка по диапазону страниц
+      if (params.range) {
+        const [minPages, maxPages] = params.range;
+        if (book.pages >= minPages && book.pages <= maxPages) {
+          matches = true;
+        }
+      }
+
+      // Проверка по жанру
+      if (params.genre && params.genre.includes(book.genre)) {
+        matches = true;
+      }
+
+      // Проверка по языку
+      if (params.language && params.language.includes(book.language)) {
+        matches = true;
+      }
+
+      return matches; // Возвращаем true, если хотя бы один параметр совпал
+    });
 
     // Преобразование массива обратно в Map
     const filteredBooksMap = new Map<number, Book>();

@@ -1,4 +1,4 @@
-<p-dataView [rows]="10" [paginator]="true" [value]="bookSignal$ | async">
+<p-dataView [rows]="10" [paginator]="true" [value]="books()">
   <ng-template pTemplate="list" let-books>
     <div>
       @for (book of books; track book) {

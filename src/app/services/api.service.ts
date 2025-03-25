@@ -13,7 +13,6 @@ export class ApiService {
 
   getBooks(url: string, params?: any): Observable<Book[]> {
     if (params) {
-      console.log(params, 'params');
       this.mockService.filter(params);
     }
     return this.mockService.books
@@ -25,7 +24,7 @@ export class ApiService {
     let booksDict = this.mockService.books.value;
     booksDict = booksDict.set(data.id, data);
 
-    this.mockService.books.next(booksDict);
+    this.mockService.addBook(data);
     return of(data);
   }
 

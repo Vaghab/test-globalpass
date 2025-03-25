@@ -87,7 +87,7 @@ export class FormComponent {
   public addBook() {
     const newBook: Book = {
       ...this.newBookForm.getRawValue(),
-      id: this.dynamicDialogConfig.data.books.length + 1,
+      id: this.dynamicDialogConfig.data.books.length + 2,
       language: this.newBookForm.controls.language.value,
       author: this.newBookForm.controls.author.value.name,
     };
